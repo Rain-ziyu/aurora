@@ -61,13 +61,13 @@
 <script lang="ts">
 import { defineComponent, onMounted, reactive, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
-import Breadcrumb from '@/components/Breadcrumb.vue'
+import Breadcrumb from '../components/Breadcrumb.vue'
 import { Sidebar, Profile } from '../components/Sidebar'
-import Paginator from '@/components/Paginator.vue'
+import Paginator from '../components/Paginator.vue'
 import Avatar from '../components/Avatar.vue'
 import { v3ImgPreviewFn } from 'v3-img-preview'
 import { useRouter } from 'vue-router'
-import api from '@/api/api'
+import api from '../api/api'
 
 export default defineComponent({
   name: 'talkList',
