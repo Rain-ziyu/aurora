@@ -213,7 +213,7 @@ export default {
     return {
       websiteConfigForm: {},
       activeName: 'info',
-      headers: { Authorization: 'Bearer ' + sessionStorage.getItem('token') }
+      headers: { token: sessionStorage.getItem('token') }
     }
   },
   methods: {
@@ -252,7 +252,7 @@ export default {
     },
     updateWebsiteConfig() {
       this.axios.put('/api/admin/website/config', this.websiteConfigForm).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message

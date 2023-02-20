@@ -224,7 +224,7 @@ export default {
       let param = {}
       param = { data: this.jobLogIds }
       this.axios.delete('/api/admin/jobLogs', param).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: '删除成功'
@@ -240,7 +240,7 @@ export default {
     },
     clean() {
       this.axios.delete('/api/admin/jobLogs/clean').then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: '清空成功'

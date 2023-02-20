@@ -85,7 +85,7 @@ export default {
         { status: 2, desc: '私密' }
       ],
       uploads: [],
-      headers: { Authorization: 'Bearer ' + sessionStorage.getItem('token') }
+      headers: { token: sessionStorage.getItem('token') }
     }
   },
   methods: {
@@ -127,7 +127,7 @@ export default {
         this.talk.images = ''
       }
       this.axios.post('/api/admin/talks', this.talk).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$refs.editor.clear()
           this.uploads = []
           this.$router.push({ path: '/talk-list' })

@@ -201,7 +201,7 @@ export default {
       current: 1,
       size: 18,
       count: 0,
-      headers: { Authorization: 'Bearer ' + sessionStorage.getItem('token') }
+      headers: { token: sessionStorage.getItem('token') }
     }
   },
   methods: {
@@ -251,7 +251,7 @@ export default {
           photoUrls: photoUrls
         })
         .then(({ data }) => {
-          if (data.flag) {
+          if (data.success) {
             this.$notify.success({
               title: '成功',
               message: data.message
@@ -274,7 +274,7 @@ export default {
         return false
       }
       this.axios.put('/api/admin/photos', this.photoForm).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message
@@ -296,7 +296,7 @@ export default {
           photoIds: this.selectphotoIds
         })
         .then(({ data }) => {
-          if (data.flag) {
+          if (data.success) {
             this.$notify.success({
               title: '成功',
               message: data.message
@@ -353,7 +353,7 @@ export default {
         param = { ids: [id], isDelete: 1 }
       }
       this.axios.put('/api/admin/photos/delete', param).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message

@@ -2,21 +2,23 @@ import axios from 'axios'
 import { app } from '@/main'
 
 axios.interceptors.request.use((config: any) => {
-  config.headers['Authorization'] = 'Bearer ' + sessionStorage.getItem('token')
+  config.headers['token'] = sessionStorage.getItem('token')
+  // 预留之后使用
+  config.headers['refreshToken'] = sessionStorage.getItem('refreshToken')
   return config
 })
 
 axios.interceptors.response.use(
   (response) => {
-    switch (response.data.code) {
-      case 50000:
+    switch (response.data.result) {
+      case 1:
         app.config.globalProperties.$notify({
           title: 'Error',
-          message: '系统异常,请联系管理员',
+          message: response.data.message,
           type: 'error'
         })
         break
-      case 40001:
+      case 510:
         app.config.globalProperties.$notify({
           title: 'Error',
           message: '用户未登录',
@@ -59,7 +61,10 @@ export default {
     return axios.get('/api/archives/all', { params: params })
   },
   login: (params: any) => {
-    return axios.post('/api/users/login', params)
+    return axios.post('/api/login', params)
+  },
+  getCurrentUserInfo: () => {
+    return axios.get('/api/users/info')
   },
   saveComment: (params: any) => {
     return axios.post('/api/comments/save', params)
@@ -129,7 +134,7 @@ export default {
     return axios.get('/api/talks/' + id)
   },
   logout: () => {
-    return axios.post('/api/users/logout')
+    return axios.post('/api/logout')
   },
   getRepliesByCommentId: (commentId: any) => {
     return axios.get(`/api/comments/${commentId}/replies`)

@@ -338,7 +338,7 @@ export default {
           status: job.status
         })
         .then(({ data }) => {
-          if (data.flag) {
+          if (data.success) {
             this.$notify.success({
               title: '成功',
               message: '修改成功'
@@ -360,7 +360,7 @@ export default {
         param = { data: [id] }
       }
       this.axios.delete('/api/admin/jobs', param).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: '删除成功'
@@ -399,7 +399,7 @@ export default {
     handleEditOrUpdate() {
       if (this.editOrUpdate === true) {
         this.axios.put('/api/admin/jobs', this.job).then(({ data }) => {
-          if (data.flag) {
+          if (data.success) {
             this.$notify.success({
               title: '修改成功',
               message: data.message
@@ -415,7 +415,7 @@ export default {
         })
       } else if (this.editOrUpdate === false) {
         this.axios.post('/api/admin/jobs', this.job).then(({ data }) => {
-          if (data.flag) {
+          if (data.success) {
             this.$notify.success({
               title: '添加成功',
               message: data.message
@@ -452,7 +452,7 @@ export default {
         jobGroup: job.jobGroup
       }
       this.axios.put('/api/admin/jobs/run', params).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '执行成功',
             message: data.message

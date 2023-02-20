@@ -34,7 +34,6 @@ Vue.use(VueCalendarHeatmap)
 Vue.use(VueAxios, axios)
 Vue.component('v-chart', ECharts)
 Vue.prototype.$moment = dayjs
-
 Vue.filter('date', function (value, formatStr = 'YYYY-MM-DD') {
   return dayjs(value).format(formatStr)
 })
@@ -67,21 +66,21 @@ router.afterEach(() => {
 })
 
 axios.interceptors.request.use((config) => {
-  config.headers['Authorization'] = 'Bearer ' + sessionStorage.getItem('token')
+  config.headers['token'] = sessionStorage.getItem('token')
   return config
 })
 
 axios.interceptors.response.use(
   (response) => {
-    switch (response.data.code) {
-      case 40001:
+    switch (response.data.result) {
+      case 1:
         Vue.prototype.$message({
           type: 'error',
           message: response.data.message
         })
         router.push({ path: '/login' })
         break
-      case 50000:
+      case 510:
         Vue.prototype.$message({
           type: 'error',
           message: response.data.message

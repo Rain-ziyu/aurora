@@ -185,7 +185,7 @@ export default {
         param = { data: [id] }
       }
       this.axios.delete('/api/admin/roles', param).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message
@@ -228,7 +228,7 @@ export default {
       this.roleForm.menuIds = null
       this.roleForm.resourceIds = this.$refs.resourceTree.getCheckedKeys()
       this.axios.post('/api/admin/role', this.roleForm).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message
@@ -251,7 +251,7 @@ export default {
       this.roleForm.resourceIds = null
       this.roleForm.menuIds = this.$refs.menuTree.getCheckedKeys().concat(this.$refs.menuTree.getHalfCheckedKeys())
       this.axios.post('/api/admin/role', this.roleForm).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message

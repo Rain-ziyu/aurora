@@ -68,7 +68,7 @@ export default defineComponent({
       }
       params.topicId = arr[2]
       api.saveComment(params).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           fetchComments()
           let isCommentReview = appStore.websiteConfig.isCommentReview
           if (isCommentReview) {

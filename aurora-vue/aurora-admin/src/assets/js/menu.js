@@ -6,7 +6,7 @@ import Vue from 'vue'
 
 export function generaMenu() {
   axios.get('/api/admin/user/menus').then(({ data }) => {
-    if (data.flag) {
+    if (data.success) {
       let userMenus = data.data
       userMenus.forEach((item) => {
         if (item.icon != null) {

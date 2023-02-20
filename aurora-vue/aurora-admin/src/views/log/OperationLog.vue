@@ -165,7 +165,7 @@ export default {
         param = { data: this.logIds }
       }
       this.axios.delete('/api/admin/operation/logs', param).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message

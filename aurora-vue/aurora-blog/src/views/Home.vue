@@ -161,7 +161,7 @@ export default defineComponent({
             size: pagination.size
           })
           .then(({ data }) => {
-            if (data.flag) {
+            if (data.success) {
               data.data.records.forEach((item: any) => {
                 item.articleContent = md
                   .render(item.articleContent)

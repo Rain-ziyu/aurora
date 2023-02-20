@@ -148,6 +148,7 @@ export default defineComponent({
     const searchStore = useSearchStore()
     const route = useRoute()
     const router = useRouter()
+
     const loginInfo = reactive({
       username: '' as any,
       password: '' as any,
@@ -173,6 +174,7 @@ export default defineComponent({
       appStore.changeLocale(name)
     }
     const login = () => {
+
       if (loginInfo.username.trim().length == 0 || loginInfo.password.trim().length == 0) {
         proxy.$notify({
           title: 'Warning',
@@ -184,20 +186,30 @@ export default defineComponent({
       //@ts-ignore
       let captcha = new TencentCaptcha(config.captcha.TENCENT_CAPTCHA, (res: any) => {
         if (res.ret === 0) {
-          let params = new URLSearchParams()
-          params.append('username', loginInfo.username)
-          params.append('password', loginInfo.password)
+          let params = {
+            "username": loginInfo.username,
+            "password": loginInfo.password
+          }
+
           api.login(params).then(({ data }) => {
-            if (data.flag) {
-              userStore.userInfo = data.data
+            if (data.success) {
+              // 获取token
               sessionStorage.setItem('token', data.data.token)
+              sessionStorage.setItem('refreshToken', data.data.refreshToken)
               userStore.token = data.data.token
+              // 请求完整的用户信息
+              api.getCurrentUserInfo().then(({data})=>{
+                userStore.userInfo = data.data
               proxy.$notify({
                 title: 'Success',
                 message: '登录成功',
                 type: 'success'
               })
+              // 临时的刷新
+              location.reload()
               reactiveDate.loginDialogVisible = false
+              })
+             
             } else {
               proxy.$notify({
                 title: 'Error',
@@ -212,7 +224,7 @@ export default defineComponent({
     }
     const logout = () => {
       api.logout().then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           userStore.userInfo = ''
           userStore.token = ''
           userStore.accessArticles = []
@@ -222,6 +234,8 @@ export default defineComponent({
             message: '登出成功',
             type: 'success'
           })
+        // 临时的刷新
+        location.reload()
         } else {
           proxy.$notify({
             title: 'Error',
@@ -254,7 +268,7 @@ export default defineComponent({
     }
     const sendCode = () => {
       api.sendValidationCode(loginInfo.username).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           proxy.$notify({
             title: 'Success',
             message: '验证码已发送',
@@ -276,7 +290,7 @@ export default defineComponent({
         password: loginInfo.password
       }
       api.register(params).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           proxy.$notify({
             title: 'Success',
             message: '注册成功',
@@ -318,7 +332,7 @@ export default defineComponent({
     }
     const updatePassword = () => {
       api.updatePassword(loginInfo).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           proxy.$notify({
             title: 'Success',
             message: '修改成功',
@@ -350,7 +364,7 @@ export default defineComponent({
           articlePassword: reactiveDate.articlePassword
         })
         .then(({ data }) => {
-          if (data.flag) {
+          if (data.success) {
             reactiveDate.articlePasswordDialogVisible = false
             userStore.accessArticles.push(reactiveDate.articleId)
             router.push({ path: '/articles/' + reactiveDate.articleId })

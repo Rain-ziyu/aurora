@@ -109,7 +109,7 @@ export default {
         param = { ids: [id], isDelete: 0 }
       }
       this.axios.put('/api/admin/photos/delete', param).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message
@@ -126,7 +126,7 @@ export default {
     },
     deletePhotos() {
       this.axios.delete('/api/admin/photos', { data: this.selectPhotoIds }).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message

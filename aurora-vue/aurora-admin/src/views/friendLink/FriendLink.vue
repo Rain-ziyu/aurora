@@ -143,7 +143,7 @@ export default {
         param = { data: [id] }
       }
       this.axios.delete('/api/admin/links', param).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message
@@ -190,7 +190,7 @@ export default {
         return false
       }
       this.axios.post('/api/admin/links', this.linkForm).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message

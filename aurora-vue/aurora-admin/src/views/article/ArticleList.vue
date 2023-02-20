@@ -234,7 +234,7 @@ export default {
   },
   data: function () {
     return {
-      uploadHeaders: { Authorization: 'Bearer ' + sessionStorage.getItem('token') },
+      uploadHeaders: { token: sessionStorage.getItem('token') },
       loading: true,
       updateIsDelete: false,
       remove: false,
@@ -292,7 +292,7 @@ export default {
       }
       param.isDelete = this.isDelete == 0 ? 1 : 0
       this.axios.put('/api/admin/articles', param).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message
@@ -315,7 +315,7 @@ export default {
         param = { data: [id] }
       }
       this.axios.delete('/api/admin/articles/delete', param).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message
@@ -338,7 +338,7 @@ export default {
         param = [id]
       }
       this.axios.post('/api/admin/articles/export', param).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message
@@ -367,7 +367,7 @@ export default {
       }, 5 * 60 * 1000)
     },
     uploadArticle(data) {
-      if (data.flag) {
+      if (data.success) {
         this.$notify.success({
           title: '成功',
           message: '导入成功'
@@ -423,7 +423,7 @@ export default {
           isFeatured: article.isFeatured
         })
         .then(({ data }) => {
-          if (data.flag) {
+          if (data.success) {
             this.$notify.success({
               title: '成功',
               message: '修改成功'

@@ -125,7 +125,7 @@ export default {
     },
     deleteTalk() {
       this.axios.delete('/api/admin/talks', { data: [this.talkId] }).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message

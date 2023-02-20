@@ -71,7 +71,7 @@ export default {
         confirmPassword: ''
       },
       activeName: 'info',
-      headers: { Authorization: 'Bearer ' + sessionStorage.getItem('token') }
+      headers: { token: sessionStorage.getItem('token') }
     }
   },
   methods: {
@@ -83,7 +83,7 @@ export default {
       }
     },
     updateAvatar(response) {
-      if (response.flag) {
+      if (response.success) {
         this.$message.success(response.message)
         this.$store.commit('updateAvatar', response.data)
       } else {
@@ -96,7 +96,7 @@ export default {
         return false
       }
       this.axios.put('/api/users/info', this.infoForm).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: '修改成功'
@@ -128,7 +128,7 @@ export default {
         return false
       }
       this.axios.put('/api/admin/users/password', this.passwordForm).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.passwordForm.oldPassword = ''
           this.passwordForm.newPassword = ''
           this.passwordForm.confirmPassword = ''

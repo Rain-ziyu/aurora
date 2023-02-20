@@ -121,7 +121,7 @@ export default {
       current: 1,
       size: 8,
       count: 0,
-      headers: { Authorization: 'Bearer ' + sessionStorage.getItem('token') }
+      headers: { token: sessionStorage.getItem('token') }
     }
   },
   methods: {
@@ -177,7 +177,7 @@ export default {
         return false
       }
       this.axios.post('/api/admin/photos/albums', this.albumForum).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message
@@ -218,7 +218,7 @@ export default {
     },
     deleteAlbum() {
       this.axios.delete('/api/admin/photos/albums/' + this.albumForum.id).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message

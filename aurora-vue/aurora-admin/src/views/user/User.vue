@@ -169,7 +169,7 @@ export default {
       this.userForm.roleIds = this.roleIds
       console.log(this.userForm)
       this.axios.put('/api/admin/users/role', this.userForm).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message

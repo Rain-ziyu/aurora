@@ -101,7 +101,8 @@
             <div class="el-upload__text" v-if="article.articleCover == ''">将文件拖到此处，或<em>点击上传</em></div>
             <img v-else :src="article.articleCover" width="360px" height="180px" />
           </el-upload>
-        </el-form-item>
+           <img src="http://prod.huayu.asia:9000/sofa-server/articles/11a2c5f0297a5e816975e25b53da379a.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=wwlhuayu%2F20230220%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230220T053204Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=98e1612575231fe6237586bcf76c7f20325f0c602f16f0643847441490cfcfe4" />
+          </el-form-item>
         <el-form-item label="置顶">
           <el-switch
             v-model="article.isTop"
@@ -190,7 +191,7 @@ export default {
         type: 1,
         status: 1
       },
-      headers: { Authorization: 'Bearer ' + sessionStorage.getItem('token') }
+      headers: { token:  sessionStorage.getItem('token') }
     }
   },
   methods: {
@@ -231,6 +232,7 @@ export default {
       })
     },
     uploadImg(pos, file) {
+      debugger
       var formdata = new FormData()
       if (file.size / 1024 < this.config.UPLOAD_SIZE) {
         formdata.append('file', file)
@@ -241,6 +243,7 @@ export default {
         imageConversion.compressAccurately(file, this.config.UPLOAD_SIZE).then((res) => {
           formdata.append('file', new window.File([res], file.name, { type: file.type }))
           this.axios.post('/api/admin/articles/images', formdata).then(({ data }) => {
+            
             this.$refs.md.$img2Url(pos, data.data)
           })
         })
@@ -257,7 +260,7 @@ export default {
       }
       this.article.status = 3
       this.axios.post('/api/admin/articles', this.article).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           if (this.article.id === null) {
             this.$store.commit('removeTab', '发布文章')
           } else {
@@ -300,7 +303,7 @@ export default {
         return false
       }
       this.axios.post('/api/admin/articles', this.article).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           if (this.article.id === null) {
             this.$store.commit('removeTab', '发布文章')
           } else {
@@ -330,7 +333,7 @@ export default {
         this.article.id != null
       ) {
         this.axios.post('/api/admin/articles', this.article).then(({ data }) => {
-          if (data.flag) {
+          if (data.success) {
             this.$notify.success({
               title: '成功',
               message: '自动保存成功'

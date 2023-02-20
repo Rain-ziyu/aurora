@@ -210,7 +210,7 @@ export default {
         isHidden: menu.isHidden
       }
       this.axios.put('/api/admin/menus/isHidden', params).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: '修改成功'
@@ -241,7 +241,7 @@ export default {
         return false
       }
       this.axios.post('/api/admin/menus', this.menuForm).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: '操作成功'
@@ -258,7 +258,7 @@ export default {
     },
     deleteMenu(id) {
       this.axios.delete('/api/admin/menus/' + id).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: '删除成功'

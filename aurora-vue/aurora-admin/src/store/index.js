@@ -57,7 +57,7 @@ export default new Vuex.Store({
     updateUserInfo(state, user) {
       state.userInfo.nickname = user.nickname
       state.userInfo.intro = user.intro
-      state.userInfo.webSite = user.webSite
+      state.userInfo.website = user.website
     },
     updateArticleListPageState(state, current) {
       state.pageState.articleList = current

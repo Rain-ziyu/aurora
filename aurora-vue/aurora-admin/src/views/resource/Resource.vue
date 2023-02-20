@@ -130,7 +130,7 @@ export default {
     },
     changeResource(resource) {
       this.axios.post('/api/admin/resources', resource).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message
@@ -172,7 +172,7 @@ export default {
     },
     deleteResource(id) {
       this.axios.delete('/api/admin/resources/' + id).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message
@@ -192,7 +192,7 @@ export default {
         return false
       }
       this.axios.post('/api/admin/resources', this.resourceForm).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message

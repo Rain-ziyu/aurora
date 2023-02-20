@@ -99,7 +99,7 @@ export default {
     },
     removeOnlineUser(user) {
       this.axios.delete('/api/admin/users/' + user.userInfoId + '/online').then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message

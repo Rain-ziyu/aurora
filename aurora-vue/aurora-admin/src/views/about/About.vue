@@ -49,7 +49,7 @@ export default {
           content: this.aboutContent
         })
         .then(({ data }) => {
-          if (data.flag) {
+          if (data.success) {
             this.$notify.success({
               title: '成功',
               message: data.message

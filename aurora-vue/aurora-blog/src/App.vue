@@ -1,11 +1,13 @@
 <template>
   <div id="App-Wrapper" :class="[appWrapperClass, theme]" :style="wrapperStyle">
+
     <div
       id="App-Container"
       class="app-container max-w-10/12 lg:max-w-screen-2xl px-3 lg:px-8"
       @keydown.meta.k.stop.prevent=""
       tabindex="-1"
       :style="cssVariables">
+
       <HeaderMain />
       <div class="app-banner app-banner-image" :style="headerImage" />
       <div class="app-banner app-banner-screen" :style="headerBaseBackground" />
@@ -19,6 +21,7 @@
     </div>
     <div id="loading-bar-wrapper" :class="loadingBarClass"></div>
   </div>
+  
   <Footer id="footer" :style="cssVariables" />
   <div class="App-Mobile-sidebar" v-if="isMobile">
     <div id="App-Mobile-Profile" class="App-Mobile-wrapper">
@@ -31,11 +34,12 @@
   <teleport to="head">
     <title>{{ title }}</title>
   </teleport>
+
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, onBeforeMount, onUnmounted, ref } from 'vue'
-import { useAppStore } from '@/stores/app'
+import { useAppStore} from '@/stores/app'
 import { useCommonStore } from '@/stores/common'
 import { useMetaStore } from '@/stores/meta'
 import HeaderMain from '@/components/Header/src/Header.vue'
@@ -45,6 +49,7 @@ import Dia from '@/components/Dia.vue'
 import AuroraNavigator from '@/components/AuroraNavigator.vue'
 import UserCenter from '@/components/UserCenter.vue'
 import api from './api/api'
+
 export default defineComponent({
   name: 'App',
   components: {

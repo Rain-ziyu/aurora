@@ -133,7 +133,7 @@ export default {
         param = { data: [id] }
       }
       this.axios.delete('/api/admin/tags', param).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message
@@ -180,7 +180,7 @@ export default {
         return false
       }
       this.axios.post('/api/admin/tags', this.tagForm).then(({ data }) => {
-        if (data.flag) {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message
