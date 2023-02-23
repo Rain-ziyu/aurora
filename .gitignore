@@ -20,3 +20,4 @@ yarn-error.log*
 
 target
 aurora-springboot/src/test
+aurora-vue/aurora-admin/admin.zip
